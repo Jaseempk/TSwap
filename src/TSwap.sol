@@ -28,6 +28,13 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
+// Custom Errors
+error TSwap__InsufficientOutputAmount();
+error TSwap__InsufficientLiquidity();
+error TSwap__InvalidTokenReserve();
+error TSwap__InvalidAddressProvided();
+
+
 /// @title Token Swap Contract for ERC20 Tokens
 /// @notice This contract allows for the swapping of ERC20 tokens and managing liquidity in a fixed ratio pool.
 /// @dev The contract utilizes SafeERC20 for safe ERC20 interactions and implements a 1:1 fixed ratio for liquidity provisions.
@@ -38,11 +45,6 @@ contract TSwap is ERC20 {
     address public tokenBAddress;
     uint256 public constant RATIO = 1;
 
-    // Custom Errors
-    error TSwap__InsufficientOutputAmount();
-    error TSwap__InsufficientLiquidity();
-    error TSwap__InvalidTokenReserve();
-    error TSwap__InvalidAddressProvided();
 
     // Events
     event TokenSwap(address indexed user, address indexed tokenIn, address indexed tokenOut, uint256 amountIn, uint256 amountOut);
@@ -136,7 +138,7 @@ contract TSwap is ERC20 {
 
         emit TokenSwap(msg.sender, tokenBAddress, tokenAAddress, _tokensToSwap, outputTokens);
     }
-    
+
     /// @notice Internal function to calculate the output amount of a swap, considering a fee
     /// @param inputTokenAmount Amount of input tokens for the swap
     /// @param inputTokenReserve Current reserve of the input token
