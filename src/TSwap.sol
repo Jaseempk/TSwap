@@ -33,6 +33,7 @@ error TSwap__InsufficientOutputAmount();
 error TSwap__InsufficientLiquidity();
 error TSwap__InvalidTokenReserve();
 error TSwap__InvalidAddressProvided();
+error TSwap__InsufficientInputOrOutputAmount();
 
 
 /// @title Token Swap Contract for ERC20 Tokens
@@ -104,6 +105,7 @@ contract TSwap is ERC20 {
     /// @param _minTokensOnSwap Minimum amount of Token B expected to receive
     /// @dev Emits a TokenSwap event upon success
     function tokenAToTokenBSwap(uint256 _tokensToSwap, uint256 _minTokensOnSwap) public {
+        if (_tokensToSwap <= 0 || _minTokensOnSwap<= 0) revert TSwap__InsufficientInputOrOutputAmount();
         IERC20 tokenA = IERC20(tokenAAddress);
         IERC20 tokenB = IERC20(tokenBAddress);
 
@@ -144,7 +146,7 @@ contract TSwap is ERC20 {
     /// @param inputTokenReserve Current reserve of the input token
     /// @param outputTokenReserve Current reserve of the output token
     /// @return Amount of output tokens after the swap
-    function getOutputAmountFromSwap(uint256 inputTokenAmount, uint256 inputTokenReserve, uint256 outputTokenReserve) internal pure returns (uint256) {
+    function getOutputAmountFromSwap(uint256 inputTokenAmount, uint256 inputTokenReserve, uint256 outputTokenReserve) public pure returns (uint256) {
         if (inputTokenReserve == 0 || outputTokenReserve == 0) revert TSwap__InvalidTokenReserve();
         uint256 inputAmountWithFee = inputTokenAmount * 997; // 0.3% fee
         uint256 numerator = outputTokenReserve * inputAmountWithFee;
