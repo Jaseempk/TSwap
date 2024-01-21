@@ -1,6 +1,24 @@
+## TSwap Project
+
+**Description** 
+
+TSwap is a decentralized token swap contract built on Ethereum, enabling users to swap between ERC20 tokens and manage liquidity in a fixed ratio pool. The project leverages Solidity and OpenZeppelin's SafeERC20 library to ensure safe and efficient ERC20 token interactions.
+This is really v v basic implementation of an AMM with a fixed ratio pool.
+
+**Features**
+
+-  **Token Swapping**: Swap between different ERC20 tokens with ease.
+-  **Liquidity Provision**: Users can provide liquidity to the pool and receive liquidity provider (LP) tokens in return.
+-  **Liquidity Removal**: Liquidity providers can remove their liquidity from the pool, receiving back their share of the pool's tokens.
+-  **Fixed Ratio Pool**: Maintains a fixed ratio for liquidity provisions, ensuring balanced token contributions.
+
+
+
+
+
 ## Foundry
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+**Built with foundry**
 
 Foundry consists of:
 
